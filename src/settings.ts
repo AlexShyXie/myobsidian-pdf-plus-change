@@ -1583,7 +1583,7 @@ export class PDFPlusSettingTab extends PluginSettingTab {
 	async display(): Promise<void> {
 		// First of all, re-display the installer version modal that was shown in plugin.onload again if necessary,
 		// in case the user has accidentally closed it.
-		InstallerVersionModal.openIfNecessary(this.plugin);
+		//InstallerVersionModal.openIfNecessary(this.plugin);
 
 		this.plugin.checkDeprecatedSettings();
 
