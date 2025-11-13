@@ -1,0 +1,104 @@
+卷 Hobbies 的文件夹 PATH 列表
+卷序列号为 C14D-581B
+E:.
+│  auto-copy.ts
+│  backlink-visualizer.ts
+│  bib.ts
+│  color-palette.ts
+│  context-menu.ts
+│  dom-manager.ts
+│  drag.ts
+│  filelist.txt
+│  main.ts
+│  pdf-backlink.ts
+│  pdf-cropped-embed.ts
+│  pdfjs-enums.ts
+│  settings.ts
+│  template.ts
+│  toolbar.ts
+│  typings.d.ts
+│  
+├─lib
+│  │  commands.ts
+│  │  component.ts
+│  │  composer.ts
+│  │  copy-link.ts
+│  │  dataview.ts
+│  │  destinations.ts
+│  │  dummy-file-manager.ts
+│  │  index.ts
+│  │  name-or-number-trees.ts
+│  │  outlines.ts
+│  │  page-labels.ts
+│  │  pdf-backlink-index.ts
+│  │  speech.ts
+│  │  submodule.ts
+│  │  workspace-lib.ts
+│  │  
+│  └─highlights
+│      │  extract.ts
+│      │  geometry.ts
+│      │  index.ts
+│      │  viewer.ts
+│      │  
+│      └─write-file
+│              index.ts
+│              pdf-lib.ts
+│              
+├─modals
+│      annotation-modals.ts
+│      base-modal.ts
+│      dummy-file-modals.ts
+│      index.ts
+│      installer-version-modal.ts
+│      markdown-modal.ts
+│      outline-modals.ts
+│      page-label-modals.ts
+│      pdf-composer-modals.ts
+│      restore-default-modal.ts
+│      
+├─patchers
+│      backlink.ts
+│      clipboard-manager.ts
+│      index.ts
+│      menu.ts
+│      page-preview.ts
+│      pdf-embed.ts
+│      pdf-internals.ts
+│      pdf-outline-viewer.ts
+│      pdf-view.ts
+│      workspace.ts
+│      
+├─post-process
+│      external-link.ts
+│      index.ts
+│      pdf-link-like.ts
+│      
+├─user-script
+│      context.ts
+│      
+├─utils
+│      color.ts
+│      events.ts
+│      html-canvas.ts
+│      index.ts
+│      maps.ts
+│      menu.ts
+│      suggest.ts
+│      typescript.ts
+│      xfdf.ts
+│      
+└─vim
+        command-line.ts
+        ex-commands.ts
+        hint.ts
+        hintnames.ts
+        mode.ts
+        outline.ts
+        scope.ts
+        scroll.ts
+        search.ts
+        text-structure-parser.ts
+        vim.ts
+        visual.ts
+        
