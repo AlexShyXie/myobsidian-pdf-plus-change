@@ -3,6 +3,8 @@
 <img src="https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%238a5cf5&label=downloads&query=%24%5B%22pdf-plus%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json" alt="Obsidian Downloads">
 </p>
 
+这是我修改的代码，增加了对xfdf的支持，把xfdf当作dummyfile读取加载
+
 > [!note] 
 > I’m currently working on PDF++ v1.0.0. Because this release involves extensive refactoring, you probably won’t see any major updates for a few months—aside from minor bug fixes—until I can ship the 1.0.0 beta. But don’t worry: there’s a lot going on under the hood!
 > 
