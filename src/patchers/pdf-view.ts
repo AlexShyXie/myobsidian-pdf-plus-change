@@ -4,7 +4,6 @@ import { around } from 'monkey-around';
 import PDFPlus from 'main';
 import { PDFView } from 'typings';
 import { patchPDFInternals } from './pdf-internals';
-import { getPdfPathFromXfdf } from 'utils/xfdf'; // 导入我们新创建的工具
 
 export const patchPDFView = (plugin: PDFPlus): boolean => {
     if (plugin.patchStatus.pdfView && plugin.patchStatus.pdfInternals) return true;
@@ -57,42 +56,6 @@ export const patchPDFView = (plugin: PDFPlus): boolean => {
                 return async function (file: TFile) {
                     // Restore the last page, position & zoom level on file mofiication
                     const self = this as PDFView;
-
-                    // 检查是否是 XFDF 文件
-                    if (file.extension === 'xfdf') {
-                        const pdfInfo = await getPdfPathFromXfdf(plugin.app, file, lib);
-                        if (pdfInfo && pdfInfo.externalPath) {
-                            // 直接设置重定向，跳过文件检测
-                            return self.viewer.then(async (child) => {
-                                if (child.pdfViewer) {
-                                    const externalPath = pdfInfo.externalPath;
-                                    const redirectFrom = plugin.app.vault.getResourcePath(file).replace(/\?\d+$/, '');
-                                                    
-                                    // 设置重定向映射
-                                    child.pdfViewer.pdfPlusRedirect = { 
-                                        from: redirectFrom, 
-                                        to: externalPath 
-                                    };
-                                                    
-                                    // 标记为外部文件
-                                    child.isFileExternal = true;
-                                    child.externalFileUrl = externalPath;
-                                                    
-                                    // 调用原始 loadFile
-                                    await child.loadFile(file);
-                                                    
-                                    // 清理重定向
-                                    delete child.pdfViewer.pdfPlusRedirect;
-                                }
-                            });
-                        } else {
-                            new Notice("PDF++: Failed to load PDF from XFDF file");
-                            return;
-                        }
-                    }
-
-                    
-                    // 只有不是 XFDF 文件时才会执行到这里
                     const state = self.getState();
                     const subpath = lib.viewStateToSubpath(state);
                     return self.viewer.loadFile(file, subpath ?? undefined);

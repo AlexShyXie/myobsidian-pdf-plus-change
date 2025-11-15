@@ -16,7 +16,7 @@ import { AnnotationElement, PDFOutlineViewer, PDFViewerComponent, PDFViewerChild
 import { SidebarView, SpreadMode } from 'pdfjs-enums';
 import { VimBindings } from 'vim/vim';
 import { PDFPlusSettings } from 'settings';
-
+import { getPdfPathFromXfdf } from 'utils/xfdf'; // 导入我们新创建的工具
 
 export const patchPDFInternals = async (plugin: PDFPlus, pdfViewerComponent: PDFViewerComponent): Promise<boolean> => {
     if (plugin.patchStatus.pdfInternals) return true;
@@ -348,8 +348,26 @@ const patchPDFViewerChild = (plugin: PDFPlus, child: PDFViewerChild) => {
                 // This way, we can open local PDF files outside the vault or PDF files on the web
                 // as if it were in the vault.
                 let externalFileLoaded = false;
+                if (file.extension === 'xfdf') {
+                    
+                    const pdfInfo = await getPdfPathFromXfdf(plugin.app, file, lib);
+                    if (pdfInfo && pdfInfo.externalPath) {
+                        const redirectFrom = app.vault.getResourcePath(file).replace(/\?\d+$/, '');
+                        this.pdfViewer.pdfPlusRedirect = { from: redirectFrom, to: pdfInfo.externalPath };
 
-                if (file.stat.size < 300) {
+                        await old.call(this, file, subpath);
+                        // 本地PDF不需要revoke URL
+                        externalFileLoaded = true;
+                        this.isFileExternal = true;
+                        this.externalFileUrl = pdfInfo.externalPath;
+
+                        if (this.palette && this.palette.paletteEl) {
+                            this.palette.removeWriteFileToggle();
+                            this.palette.addImportButton(this.palette.paletteEl);
+                        }
+                    }
+                }
+                else if (file.stat.size < 300) {
                     const redirectTo = await lib.getExternalPDFUrl(file);
                     if (redirectTo) {
                         const redirectFrom = app.vault.getResourcePath(file).replace(/\?\d+$/, '');
