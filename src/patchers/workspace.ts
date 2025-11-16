@@ -16,7 +16,8 @@ export const patchWorkspace = (plugin: PDFPlus) => {
                     const { path } = parseLinktext(linktext);
                     const file = app.metadataCache.getFirstLinkpathDest(path, sourcePath);
 
-                    if (file && file.extension === 'pdf') {
+                    // +++ 修改这里：让 .xfdf 文件也触发PDF++的逻辑 +++
+                    if (file && (file.extension === 'pdf' || file.extension === 'xfdf')) {
 
                         if (Platform.isDesktopApp && plugin.settings.openPDFWithDefaultApp) {
                             if (plugin.settings.openPDFWithDefaultAppAndObsidian && plugin.settings.syncWithDefaultApp) {
